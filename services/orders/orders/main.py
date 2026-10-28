@@ -7,11 +7,12 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from orders.api import router
 from orders.config import settings
 
 app = FastAPI(
     title="Сервис заказов",
-    description="Заготовка.",
+    description="Создание и просмотр заказов клиентов.",
     version="0.1.0",
 )
 
@@ -26,4 +27,4 @@ def health() -> HealthRead:
     return HealthRead(status="ok", service=settings.service_name)
 
 
-# TODO Изменить description (пример задачи)
+app.include_router(router)
