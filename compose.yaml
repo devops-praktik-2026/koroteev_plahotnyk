@@ -37,12 +37,17 @@ services:
   orders:
     build: ./services/orders
     environment:
+      DATABASE_URL: postgresql+psycopg://praktikum:praktikum@db:5432/accounts
       ACCOUNTS_URL: http://accounts:8000
+      ACCOUNTS_TIMEOUT_SECONDS: "2.0"
     depends_on:
       accounts:
         condition: service_healthy
     ports:
       - "8002:8000"
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn orders.main:app --host 0.0.0.0 --port 8000"
 
 volumes:
   pgdata:
