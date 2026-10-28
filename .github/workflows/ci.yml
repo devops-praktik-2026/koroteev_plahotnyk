@@ -9,7 +9,7 @@ name: Проверки
 
 on:
   push:
-    branches: [main, codex/devops-practicals]
+    branches: [main, devops-practicals]
   pull_request:
 
 # Если отправить новое изменение, пока старая проверка ещё идёт,
