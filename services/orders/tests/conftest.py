@@ -1,4 +1,4 @@
-"""Общая подготовка для тестов сервиса клиентов.
+"""Общая подготовка для тестов сервиса заказов.
 
 Каждый тест получает свою пустую базу данных в оперативной памяти.
 Так тесты не зависят друг от друга и не требуют запущенного PostgreSQL.
@@ -6,6 +6,7 @@
 
 from collections.abc import Iterator
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -36,3 +37,11 @@ def client() -> Iterator[TestClient]:
     app.dependency_overrides.clear()
     Base.metadata.drop_all(engine)
     engine.dispose()
+
+
+@pytest.fixture(autouse=True)
+def available_accounts(monkeypatch):
+    def get(url, **kwargs):
+        return httpx.Response(200, json={"id": int(url.rsplit("/", 1)[-1])})
+
+    monkeypatch.setattr(httpx, "get", get)
