@@ -1,0 +1,19 @@
+Проверка OpenTofu 1.10.6, Docker 29.3.0 rootless, драйвер vfs.
+
+vfs-apply.log:
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+
+idempotence2.log:
+No changes. Your infrastructure matches the configuration.
+
+vfs-destroy.log:
+Plan: 0 to add, 0 to change, 7 to destroy.
+Destroy complete! Resources: 7 destroyed.
+
+vfs-recreate-plan.log:
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+vfs-recreate.log:
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+
+Сравнение output servers до и после пересоздания: совпадает (cmp exit 0).
