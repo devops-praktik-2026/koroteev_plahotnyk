@@ -277,5 +277,7 @@ python3 scripts/check_env.py --docker
 
 | Кто | Роль на этапе 1 |
 | --- | --- |
-|     | ведущий |
-|     | второй |
+| Timur Plahotniuc (@1mpactXD) | ведущий |
+| @Shuhalo | второй |
+
+Доска задач: <https://github.com/orgs/devops-praktik-2026/projects/27>.
