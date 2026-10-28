@@ -12,9 +12,15 @@ from orders.schemas import OrderCreate, OrderRead
 router = APIRouter(prefix="/orders", tags=["Заказы"])
 
 
+async def checked_order(payload: OrderCreate) -> OrderCreate:
+    await ensure_account_exists(payload.account_id)
+    return payload
+
+
 @router.post("", response_model=OrderRead, status_code=201, summary="Создать заказ")
-def create_order(payload: OrderCreate, session: Session = Depends(get_session)) -> Order:
-    ensure_account_exists(payload.account_id)
+def create_order(
+    payload: OrderCreate = Depends(checked_order), session: Session = Depends(get_session)
+) -> Order:
     order = Order(**payload.model_dump())
     session.add(order)
     session.commit()
