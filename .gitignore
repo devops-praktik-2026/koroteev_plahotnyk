@@ -23,7 +23,6 @@ dist/
 *.tfstate
 *.tfstate.*
 .terraform/
-.terraform.lock.hcl
 crash.log
 
 # Ключи доступа
@@ -35,3 +34,8 @@ id_rsa*
 .idea/
 .vscode/
 .DS_Store
+
+# Локальные параметры стенда и создаваемый inventory
+*.tfvars
+!*.tfvars.example
+infra/ansible/inventory.ini

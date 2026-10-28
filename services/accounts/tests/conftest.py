@@ -35,6 +35,7 @@ def client() -> Iterator[TestClient]:
         yield test_client
     app.dependency_overrides.clear()
     Base.metadata.drop_all(engine)
+    engine.dispose()
 
 
 @pytest.fixture()

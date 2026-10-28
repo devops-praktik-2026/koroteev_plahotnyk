@@ -1,0 +1,12 @@
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/devops-praktik-2026/koroteev_plahotnyk.git        
+remote: error: GH013: Repository rule violations found for refs/heads/main.        
+remote: Review all repository rules at https://github.com/devops-praktik-2026/koroteev_plahotnyk/rules?ref=refs%2Fheads%2Fmain        
+remote: 
+remote: - Changes must be made through a pull request.        
+remote: 
+remote: - 3 of 3 required status checks are expected.        
+remote: 
+To https://github.com/devops-praktik-2026/Koroteev_Plahotnyk.git
+ ! [remote rejected] c544a3757a7469a9d6d78b0e7c3a6c347f6d5196 -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/devops-praktik-2026/Koroteev_Plahotnyk.git'

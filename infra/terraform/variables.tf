@@ -17,6 +17,11 @@ variable "server_count" {
   description = "Сколько учебных «серверов» поднимать"
   type        = number
   default     = 2
+
+  validation {
+    condition     = var.server_count >= 1 && var.server_count <= 10 && floor(var.server_count) == var.server_count
+    error_message = "Число серверов должно быть целым от 1 до 10."
+  }
 }
 
 variable "ssh_base_port" {

@@ -50,7 +50,7 @@ else
 endif
 
 .DEFAULT_GOAL := help
-.PHONY: help check setup test cov lint fmt run run-orders migrate migrate-orders up down logs ps clean
+.PHONY: help check setup test integration smoke cov lint fmt run run-orders migrate migrate-orders up down logs ps clean
 
 help: ## Показать список команд
 	@$(PY) $(COMMANDS)
@@ -66,6 +66,12 @@ setup: ## Создать окружение и поставить зависим
 
 test: ## Прогнать все тесты
 	$(PYTEST)
+
+integration: ## Проверить два сервиса по HTTP без Docker
+	$(PYTEST) integration --no-cov -s
+
+smoke: ## Проверить систему, запущенную через make up
+	$(PYTHON) scripts/smoke.py
 
 cov: ## Прогнать тесты и показать покрытие построчно
 	$(PYTEST) --cov-report=term-missing
@@ -91,7 +97,7 @@ run-orders: migrate-orders ## Запустить сервис заказов: ht
 	cd $(ORDERS) && $(UVICORN_UP) orders.main:app --reload --port 8002
 
 up: ## Поднять всю систему в контейнерах
-	docker compose up --build -d
+	docker compose up --build --wait --wait-timeout 180
 	@echo http://localhost:8001/docs
 	@echo http://localhost:8002/docs
 

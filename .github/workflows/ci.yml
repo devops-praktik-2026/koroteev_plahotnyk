@@ -9,11 +9,14 @@ name: Проверки
 
 on:
   push:
-    branches: [main]
+    branches: [main, codex/devops-practicals]
   pull_request:
 
 # Если отправить новое изменение, пока старая проверка ещё идёт,
 # старая останавливается: незачем занимать очередь устаревшим кодом.
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -72,3 +75,82 @@ jobs:
 
       - name: Показать размеры образов
         run: docker images --format "{{.Repository}}:{{.Tag}}  {{.Size}}" | grep ':ci'
+
+      - name: Поднять систему и дождаться готовности
+        run: docker compose up --build --wait --wait-timeout 180
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Проверить создание заказа через два сервиса
+        run: python scripts/smoke.py
+
+      - name: Проверить ответ при отключённом сервисе клиентов
+        run: |
+          docker compose stop accounts
+          python scripts/smoke.py --unavailable
+
+      - name: Журналы при ошибке
+        if: failure()
+        run: docker compose logs --no-color
+
+      - name: Удалить тестовую систему
+        if: always()
+        run: docker compose down -v
+
+  integration:
+    name: Проверка связки
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Установить зависимости
+        run: pip install -e "./services/accounts[dev]" -e "./services/orders[dev]"
+      - name: Проверить реальные HTTP-запросы и отказ соседа
+        run: make integration
+
+  secrets-scan:
+    name: Поиск паролей
+    runs-on: ubuntu-latest
+    env:
+      VERSION: 8.21.2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Установить gitleaks
+        run: |
+          URL=https://github.com/gitleaks/gitleaks/releases/download
+          curl -fsSL "$URL/v$VERSION/gitleaks_${VERSION}_linux_x64.tar.gz" -o /tmp/gitleaks.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz gitleaks
+      - name: Проверить всю историю
+        run: ./gitleaks git . --redact
+
+  publish:
+    name: Публикация образа
+    needs: [lint, tests, docker, integration, secrets-scan]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Собрать и отправить образ
+        env:
+          REPOSITORY: ${{ github.repository }}
+          REVISION: ${{ github.sha }}
+          SOURCE: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          IMAGE="ghcr.io/${REPOSITORY,,}/orders"
+          docker build --label "org.opencontainers.image.source=$SOURCE" \
+            -t "$IMAGE:$REVISION" services/orders
+          docker push "$IMAGE:$REVISION"

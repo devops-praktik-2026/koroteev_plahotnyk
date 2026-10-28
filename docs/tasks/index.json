@@ -1,0 +1,156 @@
+[
+  {
+    "title": "Состав пары и критерии готовности",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/1",
+    "number": 1,
+    "task": null,
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERboE"
+  },
+  {
+    "title": "1.1 Описание поведения сервиса заказов",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/2",
+    "number": 2,
+    "task": "1.1",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERbvk"
+  },
+  {
+    "title": "1.2 Создание заказа",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/3",
+    "number": 3,
+    "task": "1.2",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERb0E"
+  },
+  {
+    "title": "1.3 Получение заказа по номеру",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/4",
+    "number": 4,
+    "task": "1.3",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERb4A"
+  },
+  {
+    "title": "1.4 Список заказов клиента",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/5",
+    "number": 5,
+    "task": "1.4",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERkTs"
+  },
+  {
+    "title": "1.5 Проверка клиента перед созданием заказа",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/6",
+    "number": 6,
+    "task": "1.5",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERkYU"
+  },
+  {
+    "title": "1.6 Автоматические проверки для сервиса заказов",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/7",
+    "number": 7,
+    "task": "1.6",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERkb4"
+  },
+  {
+    "title": "1.7 Защита основной ветки",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/8",
+    "number": 8,
+    "task": "1.7",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERkgM"
+  },
+  {
+    "title": "2.1 Нормальная сборка образа сервиса заказов",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/9",
+    "number": 9,
+    "task": "2.1",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERkj0"
+  },
+  {
+    "title": "2.2 Запуск всей системы одной командой",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/10",
+    "number": 10,
+    "task": "2.2",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERkoA"
+  },
+  {
+    "title": "2.3 Проверка связки двух сервисов",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/11",
+    "number": 11,
+    "task": "2.3",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERkso"
+  },
+  {
+    "title": "2.4 Поведение при недоступном соседе",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/12",
+    "number": 12,
+    "task": "2.4",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERkwI"
+  },
+  {
+    "title": "2.5 Описание стенда кодом",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/13",
+    "number": 13,
+    "task": "2.5",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERk0M"
+  },
+  {
+    "title": "3.1 Настройка сервера сценарием",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/14",
+    "number": 14,
+    "task": "3.1",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERk4U"
+  },
+  {
+    "title": "3.2 Весь стенд из кода",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/15",
+    "number": 15,
+    "task": "3.2",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERlAs"
+  },
+  {
+    "title": "3.3 Файл состояния отдельно от описания",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/16",
+    "number": 16,
+    "task": "3.3",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERlEk"
+  },
+  {
+    "title": "3.4 Хранение паролей и ключей",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/17",
+    "number": 17,
+    "task": "3.4",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERlIo"
+  },
+  {
+    "title": "4.1 Установка версии одной командой",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/18",
+    "number": 18,
+    "task": "4.1",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERlOg"
+  },
+  {
+    "title": "4.2 Проверка после установки",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/19",
+    "number": 19,
+    "task": "4.2",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERlSI"
+  },
+  {
+    "title": "4.3 Возврат к предыдущей версии",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/20",
+    "number": 20,
+    "task": "4.3",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERlWw"
+  },
+  {
+    "title": "4.4 Изменения структуры базы данных",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/21",
+    "number": 21,
+    "task": "4.4",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERlcU"
+  },
+  {
+    "title": "4.5 Документация по авариям",
+    "url": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/issues/22",
+    "number": 22,
+    "task": "4.5",
+    "project_item_id": "PVTI_lADOE6uH3c4BpK_yzhERlgY"
+  }
+]

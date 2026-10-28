@@ -13,7 +13,7 @@
 # Вместо tofu можно писать terraform — язык описания одинаковый.
 
 terraform {
-  required_version = ">= 1.6"
+  required_version = ">= 1.10"
 
   required_providers {
     docker = {
@@ -86,6 +86,7 @@ resource "docker_container" "db" {
   ports {
     internal = 5432
     external = var.db_port
+    ip       = "127.0.0.1"
   }
 
   restart = "unless-stopped"
@@ -105,7 +106,7 @@ resource "docker_image" "server" {
   build {
     context = "${path.module}/../server-image"
     build_args = {
-      SSH_PUBLIC_KEY = trimspace(file(var.ssh_public_key_path))
+      SSH_PUBLIC_KEY = trimspace(file(pathexpand(var.ssh_public_key_path)))
     }
   }
 }
@@ -124,12 +125,14 @@ resource "docker_container" "server" {
   ports {
     internal = 22
     external = var.ssh_base_port + count.index
+    ip       = "127.0.0.1"
   }
 
   # Порт приложения: 8101, 8102, …
   ports {
     internal = 8000
     external = var.app_base_port + count.index
+    ip       = "127.0.0.1"
   }
 
   restart = "unless-stopped"

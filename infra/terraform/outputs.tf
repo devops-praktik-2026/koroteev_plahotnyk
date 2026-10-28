@@ -22,15 +22,13 @@ output "servers" {
   ]
 }
 
-# ЗАДАНИЕ: добавьте вывод, из которого получается готовый
-# список серверов для сценария настройки. Проверить можно так:
-#
-#     tofu output -raw ansible_inventory > ../ansible/inventory.ini
-#     ansible-playbook -i ../ansible/inventory.ini ../ansible/site.yml
-#
-# output "ansible_inventory" {
-#   value = <<-EOT
-#     [app]
-#     ...
-#   EOT
-# }
+output "ansible_inventory" {
+  description = "Inventory для Ansible из фактических портов серверов"
+  value = join("\n", concat(
+    ["[app]"],
+    [for index, container in docker_container.server :
+      "${container.name} ansible_host=127.0.0.1 ansible_port=${var.ssh_base_port + index} ansible_user=deploy"
+    ],
+    [""]
+  ))
+}

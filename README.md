@@ -277,5 +277,81 @@ python3 scripts/check_env.py --docker
 
 | Кто | Роль на этапе 1 |
 | --- | --- |
-|     | ведущий |
-|     | второй |
+| Timur Plahotniuc (@1mpactXD) | ведущий |
+| @Shuhalo | второй |
+
+## Как поднять систему
+
+```bash
+make up       # собрать образы, запустить PostgreSQL и оба сервиса
+make ps       # проверить готовность контейнеров
+make down     # остановить систему и УДАЛИТЬ её данные
+```
+
+Документация клиентов: <http://localhost:8001/docs>, заказов:
+<http://localhost:8002/docs>. Сервис заказов ждёт готовности сервиса клиентов,
+тот — готовности PostgreSQL. Миграции обоих сервисов применяются перед запуском
+приложений; таблица версий миграций заказов отделена от таблицы версий клиентов.
+Данные заказов и клиентов хранятся в томе PostgreSQL и переживают перезапуск.
+
+```bash
+make smoke         # создать клиента и заказ, проверить чтение и фильтр
+make integration   # тот же сценарий на двух временных процессах без Docker
+make migrate-orders
+make run-orders    # локальный запуск заказов, SQLite orders.db
+```
+
+Чтобы проверить отказ соседа:
+
+```bash
+docker compose stop accounts
+.venv/bin/python scripts/smoke.py --unavailable
+docker compose start accounts
+```
+
+Успешная проверка — ответ 503 менее чем за 3 секунды. Адрес и время ожидания
+задаются `ACCOUNTS_URL` и `ACCOUNTS_TIMEOUT_SECONDS` (по умолчанию 2 секунды).
+Контракт запросов: [docs/orders-api.md](docs/orders-api.md).
+`DATABASE_URL` для локального запуска каждого сервиса задавайте отдельно:
+клиентам — `sqlite:///./accounts.db`, заказам — `sqlite:///./orders.db`.
+
+## Стенд OpenTofu (ПЗ 5)
+
+Нужны OpenTofu >= 1.10, работающий Docker и открытый SSH-ключ.
+
+```bash
+cp infra/terraform/terraform.tfvars.example infra/terraform/terraform.tfvars
+# Укажите в локальном terraform.tfvars свой путь к открытому ключу.
+cd infra/terraform
+tofu init
+tofu fmt -check
+tofu validate
+tofu plan                 # ожидается 7 ресурсов при server_count=2
+tofu apply
+tofu state list
+tofu output servers
+tofu apply                # повторный запуск: 0 изменений
+tofu destroy              # удалит в том числе базу и её том
+```
+
+После удаления снова выполните `tofu apply` и сравните `tofu output servers`.
+Вывод содержит имена и проброшенные порты: они повторяются при одинаковых
+параметрах; внутренние идентификаторы контейнеров будут новыми.
+Порты стенда привязаны к `127.0.0.1`. SSH: `deploy`, порты 2201 и 2202.
+`terraform.tfvars`, состояние и каталог `.terraform` игнорируются Git;
+`.terraform.lock.hcl` хранится в репозитории для повторяемого выбора провайдера.
+
+Опыт двух участников: если применить конфигурацию на разных компьютерах с
+локальным состоянием, каждый управляет своим Docker и создаёт свой стенд.
+Файлы состояния получат разные идентификаторы. Если направить два независимых
+состояния на один Docker, возникнут конфликты имён/портов: блокировка локального
+файла не согласует два разных состояния. Фактический совместный опыт и вывод
+команд нужно приложить после выполнения обоими участниками.
+
+## Материалы для сдачи
+
+- [Отчёт по ПЗ 1–5](docs/practicals-report.md)
+- [Действия в GitHub и совместные проверки](docs/github-checklist.md)
+- [Заготовки карточек](docs/tasks/)
+
+Доска задач: <https://github.com/orgs/devops-praktik-2026/projects/27>.
