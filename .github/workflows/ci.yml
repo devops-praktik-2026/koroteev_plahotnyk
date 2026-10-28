@@ -110,7 +110,7 @@ jobs:
       - name: Установить зависимости
         run: pip install -e "./services/accounts[dev]" -e "./services/orders[dev]"
       - name: Проверить реальные HTTP-запросы и отказ соседа
-        run: make integration
+        run: python -m pytest integration --no-cov -s
 
   secrets-scan:
     name: Поиск паролей
