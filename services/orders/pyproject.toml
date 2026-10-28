@@ -9,8 +9,9 @@ dependencies = [
     "httpx>=0.27",
     "pydantic>=2.9",
     "pydantic-settings>=2.6",
-    # Когда дойдёте до хранения заказов в базе данных, добавьте сюда
-    # sqlalchemy, alembic и psycopg — так же, как это сделано в сервисе клиентов.
+    "sqlalchemy>=2.0.36",
+    "alembic>=1.14",
+    "psycopg[binary]>=3.2",
 ]
 
 [project.optional-dependencies]
