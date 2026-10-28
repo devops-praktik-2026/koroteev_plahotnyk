@@ -41,7 +41,7 @@ def client() -> Iterator[TestClient]:
 
 @pytest.fixture(autouse=True)
 def available_accounts(monkeypatch):
-    def get(url, **kwargs):
+    async def get(self, url, **kwargs):
         return httpx.Response(200, json={"id": int(url.rsplit("/", 1)[-1])})
 
-    monkeypatch.setattr(httpx, "get", get)
+    monkeypatch.setattr(httpx.AsyncClient, "get", get)
