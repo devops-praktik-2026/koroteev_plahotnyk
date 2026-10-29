@@ -58,6 +58,7 @@ def test_required_fields(client, payload, field):
     assert response.status_code == 422
     assert response.json()["detail"][0]["loc"][-1] == field
 
+
 def test_get_existing_order(client, payload):
     created = client.post("/orders", json=payload)
     assert created.status_code == 201
