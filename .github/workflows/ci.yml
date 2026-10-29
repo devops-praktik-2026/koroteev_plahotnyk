@@ -63,12 +63,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Собрать образ сервиса клиентов
         run: docker build -t accounts:ci ./services/accounts
 
       - name: Собрать образ сервиса заказов
         run: docker build -t orders:ci ./services/orders
+
+      - name: Проверить образ заказов и кеш зависимостей
+        env:
+          BASE_REVISION: ${{ github.event.pull_request.base.sha }}
+        run: bash scripts/check-orders-image.sh
 
       - name: Показать размеры образов
         run: docker images --format "{{.Repository}}:{{.Tag}}  {{.Size}}" | grep ':ci'
