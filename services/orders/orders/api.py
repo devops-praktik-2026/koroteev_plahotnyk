@@ -1,6 +1,6 @@
 """Создание заказов."""
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -23,6 +23,23 @@ def create_order(
     session.add(order)
     session.commit()
     session.refresh(order)
+
+    return order
+
+
+@router.get("/{order_id}", response_model=OrderRead, summary="Получить заказ")
+def get_order(
+    order_id: int,
+    session: Session = Depends(get_session),
+) -> Order:
+    """Вернуть заказ по номеру."""
+    order = session.get(Order, order_id)
+
+    if order is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Заказ {order_id} не найден",
+        )
 
     return order
 
