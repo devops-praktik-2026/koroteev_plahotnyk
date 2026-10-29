@@ -57,6 +57,8 @@ def test_required_fields(client, payload, field):
 
     assert response.status_code == 422
     assert response.json()["detail"][0]["loc"][-1] == field
+
+
 def test_filter_and_limit(client, payload):
     """Список содержит только заказы выбранного клиента."""
 

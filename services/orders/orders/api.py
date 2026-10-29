@@ -25,7 +25,8 @@ def create_order(
     session.refresh(order)
 
     return order
-    
+
+
 @router.get("", response_model=list[OrderRead], summary="Заказы клиента")
 def list_orders(
     account_id: int = Query(ge=1),
