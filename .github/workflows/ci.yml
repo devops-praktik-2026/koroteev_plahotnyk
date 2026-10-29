@@ -109,3 +109,38 @@ jobs:
 
       - name: Проверить обнаружение учебного секрета
         run: python scripts/check_secret_scanner.py "$(command -v gitleaks)"
+
+  publish:
+    name: Публикация образа
+    needs: [lint, tests, docker, secrets-scan]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Войти в GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Собрать и отправить образ
+        env:
+          REPOSITORY: ${{ github.repository }}
+          REVISION: ${{ github.sha }}
+          SOURCE: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          IMAGE="ghcr.io/${REPOSITORY,,}/orders"
+
+          docker build \
+            --label "org.opencontainers.image.source=$SOURCE" \
+            -t "$IMAGE:$REVISION" \
+            services/orders
+
+          docker push "$IMAGE:$REVISION"
