@@ -57,3 +57,20 @@ def test_required_fields(client, payload, field):
 
     assert response.status_code == 422
     assert response.json()["detail"][0]["loc"][-1] == field
+
+def test_get_existing_order(client, payload):
+    created = client.post("/orders", json=payload)
+    assert created.status_code == 201
+    order = created.json()
+
+    response = client.get(f"/orders/{order['id']}")
+
+    assert response.status_code == 200
+    assert response.json() == order
+
+
+def test_get_missing_order(client):
+    response = client.get("/orders/999")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Заказ 999 не найден"}
