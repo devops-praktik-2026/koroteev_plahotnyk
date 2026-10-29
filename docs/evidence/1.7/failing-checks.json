@@ -1,0 +1,57 @@
+{
+  "headRefOid": "b156aa44d5530b624a51ce49dc8d533bf4c2cb8e",
+  "mergeStateStatus": "BLOCKED",
+  "reviewDecision": "REVIEW_REQUIRED",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-29T10:52:37Z",
+      "conclusion": "FAILURE",
+      "detailsUrl": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/actions/runs/40860959867/job/123403761537",
+      "name": "Стиль кода",
+      "startedAt": "2026-10-29T10:52:25Z",
+      "status": "COMPLETED",
+      "workflowName": "Проверки"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-29T10:52:50Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/actions/runs/40860959867/job/123403761294",
+      "name": "Тесты",
+      "startedAt": "2026-10-29T10:52:25Z",
+      "status": "COMPLETED",
+      "workflowName": "Проверки"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-29T10:53:19Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/actions/runs/40860959867/job/123403761405",
+      "name": "Сборка образов",
+      "startedAt": "2026-10-29T10:52:25Z",
+      "status": "COMPLETED",
+      "workflowName": "Проверки"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-29T10:52:33Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/actions/runs/40860959867/job/123403761563",
+      "name": "Поиск паролей",
+      "startedAt": "2026-10-29T10:52:25Z",
+      "status": "COMPLETED",
+      "workflowName": "Проверки"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-29T10:53:19Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/devops-praktik-2026/koroteev_plahotnyk/actions/runs/40860959867/job/123404172759",
+      "name": "Публикация образа",
+      "startedAt": "2026-10-29T10:53:20Z",
+      "status": "COMPLETED",
+      "workflowName": "Проверки"
+    }
+  ]
+}
