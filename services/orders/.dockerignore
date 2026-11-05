@@ -1,0 +1,11 @@
+# В контекст входят только описание зависимостей и исходный код.
+**
+!Dockerfile
+!pyproject.toml
+!orders/
+!orders/**
+**/__pycache__/
+**/*.py[cod]
+**/.env
+**/.env.*
+**/*.db
